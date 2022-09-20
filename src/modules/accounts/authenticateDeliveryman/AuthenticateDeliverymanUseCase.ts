@@ -1,7 +1,6 @@
-import { compare } from "bcrypt"
-import { sign } from "jsonwebtoken"
-import { prisma } from "../../../database/prisma/prismaClient"
-
+import { compare } from 'bcrypt'
+import { sign } from 'jsonwebtoken'
+import { prisma } from '../../../database/prisma/prismaClient'
 
 interface IAuthenticateDeliveryman {
   username: string
@@ -9,7 +8,7 @@ interface IAuthenticateDeliveryman {
 }
 
 export class AuthenticateDeliverymanUseCase {
-  async execute({ password, username }: IAuthenticateDeliveryman) {
+  async execute ({ password, username }: IAuthenticateDeliveryman): Promise<string> {
     const messageError = 'Username or password incorrect'
 
     const deliveryman = await prisma.deliveryman.findUnique({
@@ -18,7 +17,7 @@ export class AuthenticateDeliverymanUseCase {
       }
     })
 
-    if (!deliveryman) {
+    if (deliveryman == null) {
       throw new Error(messageError)
     }
 
