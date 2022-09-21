@@ -1,5 +1,7 @@
-import { Deliveryman } from '@prisma/client'
 import { hash } from 'bcrypt'
+
+import { Deliveryman } from '@prisma/client'
+
 import { prisma } from '../../../../database/prisma/prismaClient'
 
 interface ICreateDeliveryman {

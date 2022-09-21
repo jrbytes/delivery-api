@@ -1,4 +1,5 @@
 import { Request, Response } from 'express'
+
 import { AuthenticateDeliverymanUseCase } from './AuthenticateDeliverymanUseCase'
 
 export class AuthenticateDeliverymanController {

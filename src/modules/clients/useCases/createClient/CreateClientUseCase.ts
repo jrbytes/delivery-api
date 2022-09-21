@@ -1,5 +1,7 @@
-import { Clients } from '@prisma/client'
 import { hash } from 'bcrypt'
+
+import { Clients } from '@prisma/client'
+
 import { prisma } from '../../../../database/prisma/prismaClient'
 
 interface ICreateClient {
