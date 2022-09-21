@@ -3,6 +3,7 @@ import { Router } from 'express'
 import { AuthenticateDeliverymanController } from './modules/accounts/authenticateDeliveryman/AuthenticateDeliverymanController'
 import { AuthenticateClientController } from './modules/accounts/authenticateUser/AuthenticateUserController'
 import { CreateClientController } from './modules/clients/useCases/createClient/CreateClientController'
+import { CreateDeliveryController } from './modules/deliveries/useCases/createDelivery/CreateDeliveryController'
 import { CreateDeliverymanController } from './modules/deliveryman/useCases/createDeliveryman/CreateDeliverymanController'
 
 const routes = Router()
@@ -10,6 +11,7 @@ const routes = Router()
 const createClientController = new CreateClientController()
 const authenticateClientController = new AuthenticateClientController()
 const createDeliverymanController = new CreateDeliverymanController()
+const createDeliveryController = new CreateDeliveryController()
 const authenticateDeliverymanController = new AuthenticateDeliverymanController()
 
 routes.post('/client/authenticate', authenticateClientController.handle)
@@ -17,5 +19,6 @@ routes.post('/deliveryman/authenticate', authenticateDeliverymanController.handl
 
 routes.post('/clients', createClientController.handle)
 routes.post('/deliveryman', createDeliverymanController.handle)
+routes.post('/delivery', createDeliveryController.handle)
 
 export { routes }
