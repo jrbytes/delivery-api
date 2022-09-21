@@ -2,20 +2,16 @@ import { hash } from 'bcrypt'
 
 import { Deliveryman } from '@prisma/client'
 
-import { prisma } from '../../../../database/prisma/prismaClient'
-
-interface ICreateDeliveryman {
-  username: string
-  password: string
-}
+import { ICreateDeliverymanDTO } from '../../dtos/ICreateDeliverymanDTO'
+import { IDeliverymanRepository } from '../../repositories/IDeliverymanRepository'
 
 export class CreateDeliverymanUseCase {
-  async execute ({ username, password }: ICreateDeliveryman): Promise<Deliveryman> {
-    const deliverymanExists = await prisma.deliveryman.findUnique({
-      where: {
-        username
-      }
-    })
+  constructor (
+    private readonly deliverymanRepository: IDeliverymanRepository
+  ) {}
+
+  async execute ({ username, password }: ICreateDeliverymanDTO): Promise<Deliveryman> {
+    const deliverymanExists = await this.deliverymanRepository.findUnique(username)
 
     if (deliverymanExists != null) {
       throw new Error('Deliveryman already exists')
@@ -23,11 +19,9 @@ export class CreateDeliverymanUseCase {
 
     const hashPassword = await hash(password, 10)
 
-    const deliveryman = await prisma.deliveryman.create({
-      data: {
-        username,
-        password: hashPassword
-      }
+    const deliveryman = await this.deliverymanRepository.create({
+      username,
+      password: hashPassword
     })
 
     return deliveryman
