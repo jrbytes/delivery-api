@@ -1,19 +1,20 @@
-/* eslint-disable @typescript-eslint/consistent-type-assertions */
 import { Deliveryman } from '@prisma/client'
 
 import { ICreateDeliverymanDTO } from '../../dtos/ICreateDeliverymanDTO'
 import { IDeliverymanRepository } from '../IDeliverymanRepository'
 
+let deliveryman: Deliveryman
+
 export class InMemoryDeliverymanRepository implements IDeliverymanRepository {
   deliveryman: Deliveryman[] = []
 
   async create (data: ICreateDeliverymanDTO): Promise<Deliveryman> {
-    const deliveryman = {
+    deliveryman = {
       ...data,
       id: 'id',
       created_at: new Date(),
       updated_at: new Date()
-    } as Deliveryman
+    }
 
     this.deliveryman.push(deliveryman)
 
