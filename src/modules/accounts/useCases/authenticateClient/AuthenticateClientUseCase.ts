@@ -1,22 +1,18 @@
 import { compare } from 'bcrypt'
 import { sign } from 'jsonwebtoken'
 
-import { prisma } from '../../../database/prisma/prismaClient'
-
-interface IAuthenticateClient {
-  username: string
-  password: string
-}
+import { IClientsRepository } from '../../../clients/repositories/IClientsRepository'
+import { IAuthenticateDTO } from '../../dtos/IAuthenticateDTO'
 
 export class AuthenticateClientUseCase {
-  async execute ({ password, username }: IAuthenticateClient): Promise<string> {
+  constructor (
+    private readonly clientsRepository: IClientsRepository
+  ) {}
+
+  async execute ({ password, username }: IAuthenticateDTO): Promise<string> {
     const messageError = 'Username or password incorrect'
 
-    const client = await prisma.clients.findUnique({
-      where: {
-        username
-      }
-    })
+    const client = await this.clientsRepository.findUnique(username)
 
     if (client == null) {
       throw new Error(messageError)

@@ -1,7 +1,7 @@
 import { Router } from 'express'
 
-import { AuthenticateDeliverymanController } from './modules/accounts/authenticateDeliveryman/AuthenticateDeliverymanController'
-import { AuthenticateClientController } from './modules/accounts/authenticateUser/AuthenticateUserController'
+import { AuthenticateClientController } from './modules/accounts/useCases/authenticateClient/AuthenticateClientController'
+import { AuthenticateDeliverymanController } from './modules/accounts/useCases/authenticateDeliveryman/AuthenticateDeliverymanController'
 import { CreateClientController } from './modules/clients/useCases/createClient/CreateClientController'
 import { CreateDeliveryController } from './modules/deliveries/useCases/createDelivery/CreateDeliveryController'
 import { CreateDeliverymanController } from './modules/deliveryman/useCases/createDeliveryman/CreateDeliverymanController'
