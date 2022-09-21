@@ -2,20 +2,16 @@ import { hash } from 'bcrypt'
 
 import { Clients } from '@prisma/client'
 
-import { prisma } from '../../../../database/prisma/prismaClient'
-
-interface ICreateClient {
-  username: string
-  password: string
-}
+import { ICreateClientDTO } from '../../dtos/ICreateClienteDTO'
+import { IClientsRepository } from '../../repositories/IClientsRepository'
 
 export class CreateClientUseCase {
-  async execute ({ password, username }: ICreateClient): Promise<Clients> {
-    const clientExists = await prisma.clients.findUnique({
-      where: {
-        username
-      }
-    })
+  constructor (
+    private readonly clientsRepository: IClientsRepository
+  ) {}
+
+  async execute ({ password, username }: ICreateClientDTO): Promise<Clients> {
+    const clientExists = await this.clientsRepository.findUnique(username)
 
     if (clientExists != null) {
       throw new Error('Client already exists')
@@ -23,11 +19,9 @@ export class CreateClientUseCase {
 
     const hashPassword = await hash(password, 10)
 
-    const client = await prisma.clients.create({
-      data: {
-        username,
-        password: hashPassword
-      }
+    const client = await this.clientsRepository.create({
+      username,
+      password: hashPassword
     })
 
     return client
