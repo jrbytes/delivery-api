@@ -1,20 +1,19 @@
 import { Request, Response } from 'express'
 
 import { DeliveriesRepository } from '../../infra/prisma/repositories/DeliveriesRepository'
-import { CreateDeliveryUseCase } from './CreateDeliveryUseCase'
+import { ShowDeliveryUseCase } from './ShowDeliveryUseCase'
 
-export class CreateDeliveryController {
+export class ShowDeliveryController {
   async handle (request: Request, response: Response): Promise<Response> {
-    const { item_name, client_id } = request.body
+    const { id } = request.params
 
     const repository = new DeliveriesRepository()
-    const createDeliveryUseCase = new CreateDeliveryUseCase(
+    const showDeliveryUseCase = new ShowDeliveryUseCase(
       repository
     )
 
-    const delivery = await createDeliveryUseCase.execute({
-      client_id,
-      item_name
+    const delivery = await showDeliveryUseCase.execute({
+      id
     })
 
     return response.json(delivery)

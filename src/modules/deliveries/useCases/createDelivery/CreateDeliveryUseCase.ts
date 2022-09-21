@@ -1,6 +1,6 @@
 import { Deliveries } from '@prisma/client'
 
-import { prisma } from '../../../../database/prisma/prismaClient'
+import { IDeliveriesRepository } from '../../repositories/IDeliveriesRepository'
 
 interface ICreateDelivery {
   item_name: string
@@ -8,12 +8,14 @@ interface ICreateDelivery {
 }
 
 export class CreateDeliveryUseCase {
+  constructor (
+    private readonly deliveriesRepository: IDeliveriesRepository
+  ) {}
+
   async execute ({ item_name, client_id }: ICreateDelivery): Promise<Deliveries> {
-    const delivery = await prisma.deliveries.create({
-      data: {
-        item_name,
-        client_id
-      }
+    const delivery = await this.deliveriesRepository.create({
+      item_name,
+      client_id
     })
 
     return delivery
