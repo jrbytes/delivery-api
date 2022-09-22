@@ -1,7 +1,7 @@
 import request from 'supertest'
 
-import { app } from '../../../../app'
-import { prisma } from '../../../../database/prisma/prismaClient'
+import { prisma } from '@database/prisma'
+import { app } from '@infra/http'
 
 describe('Create Delivery Controller', () => {
   beforeAll(async () => {
@@ -26,7 +26,7 @@ describe('Create Delivery Controller', () => {
       password: 'password'
     })
 
-    const responseDelivery = await request(app).post('/delivery').send({
+    const responseDelivery = await request(app).post('/deliveries').send({
       item_name: 'Keyboard Gamer',
       client_id: responseClient.body.id
     })

@@ -1,6 +1,6 @@
+import { prisma } from '@database/prisma'
 import { Clients, PrismaClient } from '@prisma/client'
 
-import { prisma } from '../../../../../database/prisma/prismaClient'
 import { ICreateClientDTO } from '../../../dtos/ICreateClienteDTO'
 import { IClientsRepository } from '../../../repositories/IClientsRepository'
 

@@ -1,6 +1,6 @@
+import { prisma } from '@database/prisma'
 import { Deliveryman, PrismaClient } from '@prisma/client'
 
-import { prisma } from '../../../../../database/prisma/prismaClient'
 import { ICreateDeliverymanDTO } from '../../../dtos/ICreateDeliverymanDTO'
 import { IDeliverymanRepository } from '../../../repositories/IDeliverymanRepository'
 

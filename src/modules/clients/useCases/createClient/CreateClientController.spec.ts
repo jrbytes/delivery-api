@@ -1,7 +1,7 @@
 import request from 'supertest'
 
-import { app } from '../../../../app'
-import { prisma } from '../../../../database/prisma/prismaClient'
+import { prisma } from '@database/prisma'
+import { app } from '@infra/http'
 
 describe('Create Client Controller', () => {
   beforeAll(async () => {
