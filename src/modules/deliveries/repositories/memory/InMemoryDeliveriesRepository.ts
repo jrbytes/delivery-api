@@ -35,4 +35,16 @@ export class InMemoryDeliveriesRepository implements IDeliveriesRepository {
 
     return deliveries
   }
+
+  async addDeliveryman (delivery_id: string, deliveryman_id: string): Promise<Deliveries | undefined> {
+    const delivery = this.deliveries.find(delivery => delivery.id === delivery_id)
+
+    if (delivery == null) {
+      return undefined
+    }
+
+    delivery.deliveryman_id = deliveryman_id
+
+    return delivery
+  }
 }

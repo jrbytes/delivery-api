@@ -38,4 +38,17 @@ export class DeliveriesRepository implements IDeliveriesRepository {
 
     return deliveries
   }
+
+  async addDeliveryman (delivery_id: string, deliveryman_id: string): Promise<Deliveries | undefined> {
+    const delivery = await this.repository.update({
+      where: {
+        id: delivery_id
+      },
+      data: {
+        deliveryman_id
+      }
+    })
+
+    return delivery
+  }
 }
