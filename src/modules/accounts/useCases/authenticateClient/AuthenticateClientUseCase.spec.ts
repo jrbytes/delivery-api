@@ -1,3 +1,5 @@
+import { app } from '@infra/http'
+
 import { InMemoryClientsRepository } from '../../../clients/repositories/memory/InMemoryClientsRepository'
 import { CreateClientUseCase } from '../../../clients/useCases/createClient/CreateClientUseCase'
 import { AuthenticateClientUseCase } from './AuthenticateClientUseCase'
@@ -5,6 +7,8 @@ import { AuthenticateClientUseCase } from './AuthenticateClientUseCase'
 let inMemoryClientsRepository: InMemoryClientsRepository
 let authenticateClient: AuthenticateClientUseCase
 let createClient: CreateClientUseCase
+
+let server: any
 
 describe('Authenticate Client', () => {
   beforeEach(() => {
@@ -15,16 +19,25 @@ describe('Authenticate Client', () => {
     )
   })
 
+  beforeAll(() => {
+    server = app.listen()
+  })
+
+  afterAll(() => {
+    server.close()
+  })
+
   it('should be able to client authenticate', async () => {
+    const username = 'username'
     const password = '123456'
 
-    const client = await createClient.execute({
-      username: 'johndoe',
+    await createClient.execute({
+      username,
       password
     })
 
     const authenticate = await authenticateClient.execute({
-      username: client.username,
+      username,
       password
     })
 

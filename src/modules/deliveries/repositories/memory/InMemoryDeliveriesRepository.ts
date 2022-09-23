@@ -29,4 +29,10 @@ export class InMemoryDeliveriesRepository implements IDeliveriesRepository {
 
     return delivery
   }
+
+  async findAllAvailable (): Promise<Deliveries[]> {
+    const deliveries = this.deliveries.filter(delivery => delivery.end_at === null)
+
+    return deliveries
+  }
 }
