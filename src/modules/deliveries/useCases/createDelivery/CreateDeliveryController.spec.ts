@@ -17,24 +17,24 @@ describe('Create Delivery Controller', () => {
 
     const responseClient = await request(app).post('/clients').send({
       username,
-      password
+      password,
     })
 
     const responseAuthenticateClient = await request(app)
       .post('/client/authenticate')
       .send({
         username,
-        password
+        password,
       })
 
     const responseDelivery = await request(app)
       .post('/deliveries')
       .send({
-        item_name: 'Keyboard Gamer'
+        item_name: 'Keyboard Gamer',
       })
       .set({
         authorization: `Bearer ${responseAuthenticateClient.body.token}`,
-        request: responseClient.body.id
+        request: responseClient.body.id,
       })
 
     expect(responseDelivery.status).toBe(200)

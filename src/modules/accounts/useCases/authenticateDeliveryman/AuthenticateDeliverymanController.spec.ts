@@ -8,8 +8,8 @@ describe('Authenticate Deliveryman Controller', () => {
     await prisma.deliveryman.create({
       data: {
         username: 'username',
-        password: 'password'
-      }
+        password: 'password',
+      },
     })
   })
 
@@ -25,13 +25,15 @@ describe('Authenticate Deliveryman Controller', () => {
 
     await request(app).post('/deliverymen').send({
       username,
-      password
+      password,
     })
 
-    const responseAuthenticate = await request(app).post('/deliveryman/authenticate').send({
-      username,
-      password
-    })
+    const responseAuthenticate = await request(app)
+      .post('/deliveryman/authenticate')
+      .send({
+        username,
+        password,
+      })
 
     expect(responseAuthenticate.status).toBe(200)
   })

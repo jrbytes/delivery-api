@@ -6,12 +6,15 @@ import { ICreateDeliverymanDTO } from '../../dtos/ICreateDeliverymanDTO'
 import { IDeliverymanRepository } from '../../repositories/IDeliverymanRepository'
 
 export class CreateDeliverymanUseCase {
-  constructor (
-    private readonly deliverymanRepository: IDeliverymanRepository
-  ) {}
+  constructor(private readonly deliverymanRepository: IDeliverymanRepository) {}
 
-  async execute ({ username, password }: ICreateDeliverymanDTO): Promise<Deliveryman> {
-    const deliverymanExists = await this.deliverymanRepository.findUnique(username)
+  async execute({
+    username,
+    password,
+  }: ICreateDeliverymanDTO): Promise<Deliveryman> {
+    const deliverymanExists = await this.deliverymanRepository.findUnique(
+      username
+    )
 
     if (deliverymanExists != null) {
       throw new Error('Deliveryman already exists')
@@ -21,7 +24,7 @@ export class CreateDeliverymanUseCase {
 
     const deliveryman = await this.deliverymanRepository.create({
       username,
-      password: hashPassword
+      password: hashPassword,
     })
 
     return deliveryman

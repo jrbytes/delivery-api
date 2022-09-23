@@ -8,12 +8,12 @@ let deliveryman: Deliveryman
 export class InMemoryDeliverymanRepository implements IDeliverymanRepository {
   deliveryman: Deliveryman[] = []
 
-  async create (data: ICreateDeliverymanDTO): Promise<Deliveryman> {
+  async create(data: ICreateDeliverymanDTO): Promise<Deliveryman> {
     deliveryman = {
       ...data,
       id: 'id',
       created_at: new Date(),
-      updated_at: new Date()
+      updated_at: new Date(),
     }
 
     this.deliveryman.push(deliveryman)
@@ -21,9 +21,9 @@ export class InMemoryDeliverymanRepository implements IDeliverymanRepository {
     return deliveryman
   }
 
-  async findUnique (username: string): Promise<Deliveryman | undefined> {
+  async findUnique(username: string): Promise<Deliveryman | undefined> {
     const deliveryman = this.deliveryman.find(
-      deliveryman => deliveryman.username === username
+      (deliveryman) => deliveryman.username === username
     )
 
     return deliveryman

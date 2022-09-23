@@ -4,7 +4,7 @@ import { DeliverymanRepository } from '../../../deliveryman/infra/prisma/reposit
 import { AuthenticateDeliverymanUseCase } from './AuthenticateDeliverymanUseCase'
 
 export class AuthenticateDeliverymanController {
-  async handle (request: Request, response: Response): Promise<Response> {
+  async handle(request: Request, response: Response): Promise<Response> {
     const { username, password } = request.body
 
     const repository = new DeliverymanRepository()
@@ -14,7 +14,7 @@ export class AuthenticateDeliverymanController {
 
     const token = await authenticateDeliverymanUseCase.execute({
       password,
-      username
+      username,
     })
 
     return response.json({ token })

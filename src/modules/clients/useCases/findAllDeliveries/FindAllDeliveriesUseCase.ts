@@ -2,17 +2,17 @@ import { IClientsRepository } from '@modules/clients/repositories/IClientsReposi
 import { Clients } from '@prisma/client'
 
 export class FindAllDeliveriesUseCase {
-  constructor (
-    private readonly clientsRepository: IClientsRepository
-  ) {}
+  constructor(private readonly clientsRepository: IClientsRepository) {}
 
-  async execute (client_id: string): Promise<Clients | undefined> {
-    const deliveries = await this.clientsRepository.findAllDeliveriesByClientId(client_id)
+  async execute(client_id: string): Promise<Clients | undefined> {
+    const deliveries = await this.clientsRepository.findAllDeliveriesByClientId(
+      client_id
+    )
 
     if (deliveries == null) {
       throw new Error('Client not found')
+    } else {
+      return deliveries
     }
-
-    return deliveries
   }
 }

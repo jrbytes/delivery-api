@@ -13,7 +13,7 @@ describe('Create Deliveryman Controller', () => {
   it('should be able to create an deliveryman', async () => {
     const responseDeliveryman = await request(app).post('/deliverymen').send({
       username: 'jrbytes',
-      password: 'password'
+      password: 'password',
     })
 
     expect(responseDeliveryman.status).toBe(201)
@@ -22,12 +22,12 @@ describe('Create Deliveryman Controller', () => {
   it('should not be able to create an deliveryman if has exists', async () => {
     await request(app).post('/deliverymen').send({
       username: 'username',
-      password: 'password'
+      password: 'password',
     })
 
     const responseDeliveryman = await request(app).post('/deliverymen').send({
       username: 'username',
-      password: 'password'
+      password: 'password',
     })
 
     expect(responseDeliveryman.status).toBe(400)

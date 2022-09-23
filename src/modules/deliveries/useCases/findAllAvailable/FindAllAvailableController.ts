@@ -5,7 +5,7 @@ import { DeliveriesRepository } from '@modules/deliveries/infra/prisma/repositor
 import { FindAllAvailableUseCase } from './FindAllAvailableUseCase'
 
 export class FindAllAvailableController {
-  async handle (request: Request, response: Response): Promise<Response> {
+  async handle(request: Request, response: Response): Promise<Response> {
     const repository = new DeliveriesRepository()
     const deliveries = new FindAllAvailableUseCase(repository)
 

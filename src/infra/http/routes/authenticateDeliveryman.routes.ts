@@ -4,8 +4,12 @@ import { AuthenticateDeliverymanController } from '@modules/accounts/useCases/au
 
 const authenticateDeliverymanRoutes = Router()
 
-const authenticateDeliverymanController = new AuthenticateDeliverymanController()
+const authenticateDeliverymanController =
+  new AuthenticateDeliverymanController()
 
-authenticateDeliverymanRoutes.post('/', authenticateDeliverymanController.handle)
+authenticateDeliverymanRoutes.post(
+  '/',
+  authenticateDeliverymanController.handle
+)
 
 export { authenticateDeliverymanRoutes }

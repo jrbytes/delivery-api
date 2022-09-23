@@ -8,8 +8,8 @@ describe('Authenticate Client Controller', () => {
     await prisma.clients.create({
       data: {
         username: 'username',
-        password: 'password'
-      }
+        password: 'password',
+      },
     })
   })
 
@@ -25,13 +25,15 @@ describe('Authenticate Client Controller', () => {
 
     await request(app).post('/clients').send({
       username,
-      password
+      password,
     })
 
-    const responseAuthenticate = await request(app).post('/client/authenticate').send({
-      username,
-      password
-    })
+    const responseAuthenticate = await request(app)
+      .post('/client/authenticate')
+      .send({
+        username,
+        password,
+      })
 
     expect(responseAuthenticate.status).toBe(200)
   })

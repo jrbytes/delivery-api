@@ -5,11 +5,9 @@ import { IClientsRepository } from '../../../clients/repositories/IClientsReposi
 import { IAuthenticateDTO } from '../../dtos/IAuthenticateDTO'
 
 export class AuthenticateClientUseCase {
-  constructor (
-    private readonly clientsRepository: IClientsRepository
-  ) {}
+  constructor(private readonly clientsRepository: IClientsRepository) {}
 
-  async execute ({ password, username }: IAuthenticateDTO): Promise<string> {
+  async execute({ password, username }: IAuthenticateDTO): Promise<string> {
     const messageError = 'Username or password incorrect'
 
     const client = await this.clientsRepository.findUnique(username)
@@ -26,7 +24,7 @@ export class AuthenticateClientUseCase {
 
     const token = sign({ username }, process.env.CLIENT_SECRET as string, {
       subject: client.id,
-      expiresIn: '1d'
+      expiresIn: '1d',
     })
 
     return token

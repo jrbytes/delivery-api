@@ -9,11 +9,12 @@ interface IAuthenticateDeliveryman {
 }
 
 export class AuthenticateDeliverymanUseCase {
-  constructor (
-    private readonly deliverymanRepository: IDeliverymanRepository
-  ) {}
+  constructor(private readonly deliverymanRepository: IDeliverymanRepository) {}
 
-  async execute ({ password, username }: IAuthenticateDeliveryman): Promise<string> {
+  async execute({
+    password,
+    username,
+  }: IAuthenticateDeliveryman): Promise<string> {
     const messageError = 'Username or password incorrect'
 
     const deliveryman = await this.deliverymanRepository.findUnique(username)
@@ -30,7 +31,7 @@ export class AuthenticateDeliverymanUseCase {
 
     const token = sign({ username }, process.env.DELIVERYMAN_SECRET as string, {
       subject: deliveryman.id,
-      expiresIn: '1d'
+      expiresIn: '1d',
     })
 
     return token

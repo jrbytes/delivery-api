@@ -4,17 +4,15 @@ import { ClientsRepository } from '../../../clients/infra/prisma/repositories/Cl
 import { AuthenticateClientUseCase } from './AuthenticateClientUseCase'
 
 export class AuthenticateClientController {
-  async handle (request: Request, response: Response): Promise<Response> {
+  async handle(request: Request, response: Response): Promise<Response> {
     const { username, password } = request.body
 
     const repository = new ClientsRepository()
-    const authenticateClientUseCase = new AuthenticateClientUseCase(
-      repository
-    )
+    const authenticateClientUseCase = new AuthenticateClientUseCase(repository)
 
     const token = await authenticateClientUseCase.execute({
       password,
-      username
+      username,
     })
 
     return response.json({ token })

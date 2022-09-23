@@ -15,7 +15,7 @@ describe('Create Deliveryman', () => {
   it('should be able to create a new deliveryman', async () => {
     const client = await createDeliveryman.execute({
       username: 'username',
-      password: 'password'
+      password: 'password',
     })
 
     expect(client).toHaveProperty('id')
@@ -24,13 +24,13 @@ describe('Create Deliveryman', () => {
   it('should not be able to create a new deliveryman with username exists', async () => {
     await createDeliveryman.execute({
       username: 'username',
-      password: 'password'
+      password: 'password',
     })
 
     await expect(
       createDeliveryman.execute({
         username: 'username',
-        password: 'password'
+        password: 'password',
       })
     ).rejects.toEqual(new Error('Deliveryman already exists'))
   })

@@ -7,47 +7,50 @@ import { IDeliveriesRepository } from '../../../repositories/IDeliveriesReposito
 export class DeliveriesRepository implements IDeliveriesRepository {
   private readonly repository: PrismaClient['deliveries']
 
-  constructor () {
+  constructor() {
     this.repository = prisma.deliveries
   }
 
-  async create (data: ICreateDeliveryDTO): Promise<Deliveries> {
+  async create(data: ICreateDeliveryDTO): Promise<Deliveries> {
     const delivery = await this.repository.create({
-      data
+      data,
     })
 
     return delivery
   }
 
-  async findById (id: string): Promise<Deliveries | undefined> {
+  async findById(id: string): Promise<Deliveries | undefined> {
     const delivery = await this.repository.findUniqueOrThrow({
       where: {
-        id
-      }
+        id,
+      },
     })
 
     return delivery
   }
 
-  async findAllAvailable (): Promise<Deliveries[]> {
+  async findAllAvailable(): Promise<Deliveries[]> {
     const deliveries = await this.repository.findMany({
       where: {
         end_at: null,
-        deliveryman_id: null
-      }
+        deliveryman_id: null,
+      },
     })
 
     return deliveries
   }
 
-  async addDeliveryman (delivery_id: string, deliveryman_id: string): Promise<Deliveries | undefined> {
+  async addDeliveryman(
+    delivery_id: string,
+    deliveryman_id: string
+  ): Promise<Deliveries | undefined> {
     const delivery = await this.repository.update({
       where: {
-        id: delivery_id
+        id: delivery_id,
       },
       data: {
-        deliveryman_id
-      }
+        deliveryman_id,
+      },
     })
 
     return delivery

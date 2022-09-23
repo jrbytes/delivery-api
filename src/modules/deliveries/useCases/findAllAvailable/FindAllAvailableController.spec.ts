@@ -19,42 +19,42 @@ describe('Find All Available Controller', () => {
 
     const responseClient = await request(app).post('/clients').send({
       username: usernameClient,
-      password: passwordClient
+      password: passwordClient,
     })
 
     await request(app).post('/deliverymen').send({
       username: usernameDeliveryman,
-      password: passwordDeliveryman
+      password: passwordDeliveryman,
     })
 
     const responseAuthenticateClient = await request(app)
       .post('/client/authenticate')
       .send({
         username: usernameClient,
-        password: passwordClient
+        password: passwordClient,
       })
 
     const responseAuthenticateDeliveryman = await request(app)
       .post('/deliveryman/authenticate')
       .send({
         username: usernameDeliveryman,
-        password: passwordDeliveryman
+        password: passwordDeliveryman,
       })
 
     await request(app)
       .post('/deliveries')
       .send({
-        item_name: 'Keyboard Gamer'
+        item_name: 'Keyboard Gamer',
       })
       .set({
         authorization: `Bearer ${responseAuthenticateClient.body.token}`,
-        request: responseClient.body.id
+        request: responseClient.body.id,
       })
 
     const responseFindAllAvailable = await request(app)
       .get('/deliveries/available')
       .set({
-        authorization: `Bearer ${responseAuthenticateDeliveryman.body.token}`
+        authorization: `Bearer ${responseAuthenticateDeliveryman.body.token}`,
       })
 
     expect(responseFindAllAvailable.status).toBe(200)

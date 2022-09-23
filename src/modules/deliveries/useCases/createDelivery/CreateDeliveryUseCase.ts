@@ -8,14 +8,15 @@ interface ICreateDelivery {
 }
 
 export class CreateDeliveryUseCase {
-  constructor (
-    private readonly deliveriesRepository: IDeliveriesRepository
-  ) {}
+  constructor(private readonly deliveriesRepository: IDeliveriesRepository) {}
 
-  async execute ({ item_name, client_id }: ICreateDelivery): Promise<Deliveries> {
+  async execute({
+    item_name,
+    client_id,
+  }: ICreateDelivery): Promise<Deliveries> {
     const delivery = await this.deliveriesRepository.create({
       item_name,
-      client_id
+      client_id,
     })
 
     return delivery

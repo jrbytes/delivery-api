@@ -5,7 +5,7 @@ import { ClientsRepository } from '@modules/clients/infra/prisma/repositories/Cl
 import { FindAllDeliveriesUseCase } from './FindAllDeliveriesUseCase'
 
 export class FindAllDeliveriesController {
-  async handle (request: Request, response: Response): Promise<Response> {
+  async handle(request: Request, response: Response): Promise<Response> {
     const { client_id } = request
 
     const repository = new ClientsRepository()

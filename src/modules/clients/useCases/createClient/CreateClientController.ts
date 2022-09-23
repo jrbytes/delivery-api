@@ -4,7 +4,7 @@ import { ClientsRepository } from '../../infra/prisma/repositories/ClientsReposi
 import { CreateClientUseCase } from './CreateClientUseCase'
 
 export class CreateClientController {
-  async handle (request: Request, response: Response): Promise<Response> {
+  async handle(request: Request, response: Response): Promise<Response> {
     const { username, password } = request.body
 
     const repository = new ClientsRepository()
@@ -12,7 +12,7 @@ export class CreateClientController {
 
     const client = await createClientUseCase.execute({
       username,
-      password
+      password,
     })
 
     return response.status(201).json(client)

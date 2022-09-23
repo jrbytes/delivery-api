@@ -17,31 +17,31 @@ describe('Find All Deliveries Controller', () => {
 
     const responseClient = await request(app).post('/clients').send({
       username,
-      password
+      password,
     })
 
     const responseAuthenticateClient = await request(app)
       .post('/client/authenticate')
       .send({
         username,
-        password
+        password,
       })
 
     await request(app)
       .post('/deliveries')
       .send({
-        item_name: 'Goku Shirt - Dragon Ball - M'
+        item_name: 'Goku Shirt - Dragon Ball - M',
       })
       .set({
         client_id: responseClient.body.id,
-        Authorization: `Bearer ${responseAuthenticateClient.body.token}`
+        Authorization: `Bearer ${responseAuthenticateClient.body.token}`,
       })
 
     const responseDeliveriesByClient = await request(app)
       .get('/clients/deliveries')
       .set({
         client_id: responseClient.body.id,
-        Authorization: `Bearer ${responseAuthenticateClient.body.token}`
+        Authorization: `Bearer ${responseAuthenticateClient.body.token}`,
       })
 
     expect(responseDeliveriesByClient.status).toBe(200)

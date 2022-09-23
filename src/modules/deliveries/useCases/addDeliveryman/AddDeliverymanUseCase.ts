@@ -7,11 +7,12 @@ interface IRequest {
 }
 
 export class AddDeliverymanUseCase {
-  constructor (
-    private readonly deliveriesRepository: IDeliveriesRepository
-  ) {}
+  constructor(private readonly deliveriesRepository: IDeliveriesRepository) {}
 
-  async execute ({ delivery_id, deliveryman_id }: IRequest): Promise<Deliveries> {
+  async execute({
+    delivery_id,
+    deliveryman_id,
+  }: IRequest): Promise<Deliveries> {
     const delivery = await this.deliveriesRepository.addDeliveryman(
       delivery_id,
       deliveryman_id

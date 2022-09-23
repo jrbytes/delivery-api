@@ -7,15 +7,13 @@ let findAllDeliveries: FindAllDeliveriesUseCase
 describe('Find all deliveries by client', () => {
   beforeEach(() => {
     inMemoryClientsRepository = new InMemoryClientsRepository()
-    findAllDeliveries = new FindAllDeliveriesUseCase(
-      inMemoryClientsRepository
-    )
+    findAllDeliveries = new FindAllDeliveriesUseCase(inMemoryClientsRepository)
   })
 
   it('should be able to create a new client', async () => {
     const client = await inMemoryClientsRepository.create({
       username: 'username',
-      password: 'password'
+      password: 'password',
     })
 
     const list = await findAllDeliveries.execute(client.id)

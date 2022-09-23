@@ -7,23 +7,23 @@ import { IDeliverymanRepository } from '../../../repositories/IDeliverymanReposi
 export class DeliverymanRepository implements IDeliverymanRepository {
   private readonly repository: PrismaClient['deliveryman']
 
-  constructor () {
+  constructor() {
     this.repository = prisma.deliveryman
   }
 
-  async create (data: ICreateDeliverymanDTO): Promise<Deliveryman> {
+  async create(data: ICreateDeliverymanDTO): Promise<Deliveryman> {
     const deliveryman = await prisma.deliveryman.create({
-      data
+      data,
     })
 
     return deliveryman
   }
 
-  async findUnique (username: string): Promise<Deliveryman | undefined> {
+  async findUnique(username: string): Promise<Deliveryman | undefined> {
     const deliveryman = await this.repository.findUnique({
       where: {
-        username
-      }
+        username,
+      },
     })
 
     return deliveryman === null ? undefined : deliveryman

@@ -8,7 +8,7 @@ let delivery: Deliveries
 export class InMemoryDeliveriesRepository implements IDeliveriesRepository {
   deliveries: Deliveries[] = []
 
-  async create (data: ICreateDeliveryDTO): Promise<Deliveries> {
+  async create(data: ICreateDeliveryDTO): Promise<Deliveries> {
     delivery = {
       ...data,
       id: 'id',
@@ -16,7 +16,7 @@ export class InMemoryDeliveriesRepository implements IDeliveriesRepository {
       item_name: 'item_name',
       end_at: null,
       created_at: new Date(),
-      updated_at: new Date()
+      updated_at: new Date(),
     }
 
     this.deliveries.push(delivery)
@@ -24,20 +24,27 @@ export class InMemoryDeliveriesRepository implements IDeliveriesRepository {
     return delivery
   }
 
-  async findById (id: string): Promise<Deliveries | undefined> {
-    const delivery = this.deliveries.find(delivery => delivery.id === id)
+  async findById(id: string): Promise<Deliveries | undefined> {
+    const delivery = this.deliveries.find((delivery) => delivery.id === id)
 
     return delivery
   }
 
-  async findAllAvailable (): Promise<Deliveries[]> {
-    const deliveries = this.deliveries.filter(delivery => delivery.end_at === null && delivery.deliveryman_id === null)
+  async findAllAvailable(): Promise<Deliveries[]> {
+    const deliveries = this.deliveries.filter(
+      (delivery) => delivery.end_at === null && delivery.deliveryman_id === null
+    )
 
     return deliveries
   }
 
-  async addDeliveryman (delivery_id: string, deliveryman_id: string): Promise<Deliveries | undefined> {
-    const delivery = this.deliveries.find(delivery => delivery.id === delivery_id)
+  async addDeliveryman(
+    delivery_id: string,
+    deliveryman_id: string
+  ): Promise<Deliveries | undefined> {
+    const delivery = this.deliveries.find(
+      (delivery) => delivery.id === delivery_id
+    )
 
     if (delivery == null) {
       return undefined

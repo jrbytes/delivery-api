@@ -33,12 +33,12 @@ describe('Authenticate Client', () => {
 
     await createClient.execute({
       username,
-      password
+      password,
     })
 
     const authenticate = await authenticateClient.execute({
       username,
-      password
+      password,
     })
 
     expect(authenticate.length > 100).toBe(true)
@@ -48,7 +48,7 @@ describe('Authenticate Client', () => {
     await expect(
       authenticateClient.execute({
         username: 'johndoe',
-        password: '123456'
+        password: '123456',
       })
     ).rejects.toHaveProperty('message', 'Username or password incorrect')
   })
@@ -58,13 +58,13 @@ describe('Authenticate Client', () => {
 
     await createClient.execute({
       username: 'johndoe',
-      password
+      password,
     })
 
     await expect(
       authenticateClient.execute({
         username: 'johndoe',
-        password: '654321'
+        password: '654321',
       })
     ).rejects.toHaveProperty('message', 'Username or password incorrect')
   })

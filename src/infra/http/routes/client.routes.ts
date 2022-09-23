@@ -10,6 +10,10 @@ const createClientController = new CreateClientController()
 const findAllDeliveriesController = new FindAllDeliveriesController()
 
 clientRoutes.post('/', createClientController.handle)
-clientRoutes.get('/deliveries', ensureAuthenticateClient, findAllDeliveriesController.handle)
+clientRoutes.get(
+  '/deliveries',
+  ensureAuthenticateClient,
+  findAllDeliveriesController.handle
+)
 
 export { clientRoutes }

@@ -6,11 +6,9 @@ import { ICreateClientDTO } from '../../dtos/ICreateClienteDTO'
 import { IClientsRepository } from '../../repositories/IClientsRepository'
 
 export class CreateClientUseCase {
-  constructor (
-    private readonly clientsRepository: IClientsRepository
-  ) {}
+  constructor(private readonly clientsRepository: IClientsRepository) {}
 
-  async execute ({ password, username }: ICreateClientDTO): Promise<Clients> {
+  async execute({ password, username }: ICreateClientDTO): Promise<Clients> {
     const clientExists = await this.clientsRepository.findUnique(username)
 
     if (clientExists != null) {
@@ -21,7 +19,7 @@ export class CreateClientUseCase {
 
     const client = await this.clientsRepository.create({
       username,
-      password: hashPassword
+      password: hashPassword,
     })
 
     return client

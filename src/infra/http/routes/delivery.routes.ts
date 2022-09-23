@@ -14,9 +14,25 @@ const showDeliveryController = new ShowDeliveryController()
 const findAllAvailableController = new FindAllAvailableController()
 const addDeliverymanController = new AddDeliverymanController()
 
-deliveryRoutes.post('/', ensureAuthenticateClient, createDeliveryController.handle)
-deliveryRoutes.patch('/add-deliveryman/:delivery_id', ensureAuthenticateDeliveryman, addDeliverymanController.handle)
-deliveryRoutes.get('/available', ensureAuthenticateDeliveryman, findAllAvailableController.handle)
-deliveryRoutes.get('/:id', ensureAuthenticateClient, showDeliveryController.handle)
+deliveryRoutes.post(
+  '/',
+  ensureAuthenticateClient,
+  createDeliveryController.handle
+)
+deliveryRoutes.patch(
+  '/add-deliveryman/:delivery_id',
+  ensureAuthenticateDeliveryman,
+  addDeliverymanController.handle
+)
+deliveryRoutes.get(
+  '/available',
+  ensureAuthenticateDeliveryman,
+  findAllAvailableController.handle
+)
+deliveryRoutes.get(
+  '/:id',
+  ensureAuthenticateClient,
+  showDeliveryController.handle
+)
 
 export { deliveryRoutes }

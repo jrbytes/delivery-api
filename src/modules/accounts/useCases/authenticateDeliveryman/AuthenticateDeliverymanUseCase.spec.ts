@@ -13,7 +13,9 @@ let server: any
 describe('Authenticate Deliveryman', () => {
   beforeEach(() => {
     inMemoryDeliverymanRepository = new InMemoryDeliverymanRepository()
-    createDeliveryman = new CreateDeliverymanUseCase(inMemoryDeliverymanRepository)
+    createDeliveryman = new CreateDeliverymanUseCase(
+      inMemoryDeliverymanRepository
+    )
     authenticateDeliveryman = new AuthenticateDeliverymanUseCase(
       inMemoryDeliverymanRepository
     )
@@ -32,12 +34,12 @@ describe('Authenticate Deliveryman', () => {
 
     const deliveryman = await createDeliveryman.execute({
       username: 'johndoe',
-      password
+      password,
     })
 
     const authenticate = await authenticateDeliveryman.execute({
       username: deliveryman.username,
-      password
+      password,
     })
 
     expect(authenticate.length > 100).toBe(true)
@@ -47,7 +49,7 @@ describe('Authenticate Deliveryman', () => {
     await expect(
       authenticateDeliveryman.execute({
         username: 'johndoe',
-        password: '123456'
+        password: '123456',
       })
     ).rejects.toHaveProperty('message', 'Username or password incorrect')
   })
@@ -57,13 +59,13 @@ describe('Authenticate Deliveryman', () => {
 
     await createDeliveryman.execute({
       username: 'johndoe',
-      password
+      password,
     })
 
     await expect(
       authenticateDeliveryman.execute({
         username: 'johndoe',
-        password: '654321'
+        password: '654321',
       })
     ).rejects.toHaveProperty('message', 'Username or password incorrect')
   })

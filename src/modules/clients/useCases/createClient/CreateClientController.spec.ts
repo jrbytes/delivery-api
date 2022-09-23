@@ -8,8 +8,8 @@ describe('Create Client Controller', () => {
     await prisma.clients.create({
       data: {
         username: 'username',
-        password: 'password'
-      }
+        password: 'password',
+      },
     })
   })
 
@@ -22,7 +22,7 @@ describe('Create Client Controller', () => {
   it('should be able to create an client', async () => {
     const responseClient = await request(app).post('/clients').send({
       username: 'jrbytes',
-      password: 'password'
+      password: 'password',
     })
 
     expect(responseClient.status).toBe(201)
@@ -31,7 +31,7 @@ describe('Create Client Controller', () => {
   it('should not be able to create an client if has exists', async () => {
     const responseClient = await request(app).post('/clients').send({
       username: 'username',
-      password: 'password'
+      password: 'password',
     })
 
     expect(responseClient.status).toBe(400)

@@ -7,15 +7,13 @@ let createClient: CreateClientUseCase
 describe('Create Client', () => {
   beforeEach(() => {
     inMemoryClientsRepository = new InMemoryClientsRepository()
-    createClient = new CreateClientUseCase(
-      inMemoryClientsRepository
-    )
+    createClient = new CreateClientUseCase(inMemoryClientsRepository)
   })
 
   it('should be able to create a new client', async () => {
     const client = await createClient.execute({
       username: 'username',
-      password: 'password'
+      password: 'password',
     })
 
     expect(client).toHaveProperty('id')
@@ -24,13 +22,13 @@ describe('Create Client', () => {
   it('should not be able to create a new client with username exists', async () => {
     await createClient.execute({
       username: 'username',
-      password: 'password'
+      password: 'password',
     })
 
     await expect(
       createClient.execute({
         username: 'username',
-        password: 'password'
+        password: 'password',
       })
     ).rejects.toEqual(new Error('Client already exists'))
   })

@@ -15,24 +15,22 @@ describe('Add Deliveryman Controller', () => {
     const usernameClient = 'usernameClient'
     const passwordClient = 'passwordClient'
 
-    await request(app)
-      .post('/clients')
-      .send({
-        username: usernameClient,
-        password: passwordClient
-      })
+    await request(app).post('/clients').send({
+      username: usernameClient,
+      password: passwordClient,
+    })
 
     const responseAuthenticateClient = await request(app)
       .post('/client/authenticate')
       .send({
         username: usernameClient,
-        password: passwordClient
+        password: passwordClient,
       })
 
     const responseCreateDelivery = await request(app)
       .post('/deliveries')
       .send({
-        item_name: 'Akko 3068'
+        item_name: 'Akko 3068',
       })
       .set('Authorization', `Bearer ${responseAuthenticateClient.body.token}`)
 
@@ -43,21 +41,21 @@ describe('Add Deliveryman Controller', () => {
       .post('/deliverymen')
       .send({
         username: usernameDeliveryman,
-        password: passwordDeliveryman
+        password: passwordDeliveryman,
       })
 
     const responseAuthenticateDeliveryman = await request(app)
       .post('/deliveryman/authenticate')
       .send({
         username: usernameDeliveryman,
-        password: passwordDeliveryman
+        password: passwordDeliveryman,
       })
 
     const responseAddDeliveryman = await request(app)
       .patch(`/deliveries/add-deliveryman/${responseCreateDelivery.body.id}`)
       .set({
         deliveryman_id: responseCreateDeliveryman.body.id,
-        Authorization: `Bearer ${responseAuthenticateDeliveryman.body.token}`
+        Authorization: `Bearer ${responseAuthenticateDeliveryman.body.token}`,
       })
 
     expect(responseAddDeliveryman.status).toBe(200)

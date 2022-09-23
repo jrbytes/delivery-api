@@ -15,7 +15,7 @@ describe('List All Available Delivery', () => {
   it('should be able list all available delivery', async () => {
     await inMemoryDeliveriesRepository.create({
       client_id: 'client_id',
-      item_name: 'item_name'
+      item_name: 'item_name',
     })
 
     const deliveries = await listAllAvailableDelivery.execute()
