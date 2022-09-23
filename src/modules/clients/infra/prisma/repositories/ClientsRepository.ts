@@ -12,7 +12,7 @@ export class ClientsRepository implements IClientsRepository {
   }
 
   async create (data: ICreateClientDTO): Promise<Clients> {
-    const client = await prisma.clients.create({
+    const client = await this.repository.create({
       data
     })
 
@@ -27,5 +27,18 @@ export class ClientsRepository implements IClientsRepository {
     })
 
     return client === null ? undefined : client
+  }
+
+  async findAllDeliveriesByClientId (client_id: string): Promise<Clients | undefined> {
+    const clientWithDeliveries = await this.repository.findUniqueOrThrow({
+      where: {
+        id: client_id
+      },
+      include: {
+        deliveries: true
+      }
+    })
+
+    return clientWithDeliveries
   }
 }

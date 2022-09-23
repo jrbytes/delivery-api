@@ -26,4 +26,10 @@ export class InMemoryClientsRepository implements IClientsRepository {
 
     return client
   }
+
+  async findAllDeliveriesByClientId (client_id: string): Promise<Clients | undefined> {
+    const client = this.clients.find(client => client.id === client_id)
+
+    return client
+  }
 }
