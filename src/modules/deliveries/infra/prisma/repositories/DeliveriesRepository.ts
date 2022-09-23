@@ -32,7 +32,8 @@ export class DeliveriesRepository implements IDeliveriesRepository {
   async findAllAvailable (): Promise<Deliveries[]> {
     const deliveries = await this.repository.findMany({
       where: {
-        end_at: null
+        end_at: null,
+        deliveryman_id: null
       }
     })
 

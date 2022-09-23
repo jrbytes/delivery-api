@@ -31,7 +31,7 @@ export class InMemoryDeliveriesRepository implements IDeliveriesRepository {
   }
 
   async findAllAvailable (): Promise<Deliveries[]> {
-    const deliveries = this.deliveries.filter(delivery => delivery.end_at === null)
+    const deliveries = this.deliveries.filter(delivery => delivery.end_at === null && delivery.deliveryman_id === null)
 
     return deliveries
   }
