@@ -17,6 +17,6 @@ export class AuthenticateDeliverymanController {
       username
     })
 
-    return response.json(token)
+    return response.json({ token })
   }
 }

@@ -24,7 +24,7 @@ export class AuthenticateClientUseCase {
       throw new Error(messageError)
     }
 
-    const token = sign({ username }, 'secret', {
+    const token = sign({ username }, process.env.CLIENT_SECRET as string, {
       subject: client.id,
       expiresIn: '1d'
     })

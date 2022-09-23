@@ -17,6 +17,6 @@ export class AuthenticateClientController {
       username
     })
 
-    return response.json(token)
+    return response.json({ token })
   }
 }

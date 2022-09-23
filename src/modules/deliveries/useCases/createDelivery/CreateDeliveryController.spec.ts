@@ -4,15 +4,6 @@ import { prisma } from '@database/prisma'
 import { app } from '@infra/http'
 
 describe('Create Delivery Controller', () => {
-  beforeAll(async () => {
-    await prisma.clients.create({
-      data: {
-        username: 'username',
-        password: 'password'
-      }
-    })
-  })
-
   afterAll(async () => {
     const deleteClient = prisma.clients.deleteMany()
     const deleteDelivery = prisma.deliveries.deleteMany()
@@ -20,16 +11,31 @@ describe('Create Delivery Controller', () => {
     await prisma.$disconnect()
   })
 
-  it('should be able to create an delivery', async () => {
+  it('should be able to create a delivery', async () => {
+    const username = 'username'
+    const password = 'password'
+
     const responseClient = await request(app).post('/clients').send({
-      username: 'jrbytes',
-      password: 'password'
+      username,
+      password
     })
 
-    const responseDelivery = await request(app).post('/deliveries').send({
-      item_name: 'Keyboard Gamer',
-      client_id: responseClient.body.id
-    })
+    const responseAuthenticateClient = await request(app)
+      .post('/client/authenticate')
+      .send({
+        username,
+        password
+      })
+
+    const responseDelivery = await request(app)
+      .post('/deliveries')
+      .send({
+        item_name: 'Keyboard Gamer'
+      })
+      .set({
+        authorization: `Bearer ${responseAuthenticateClient.body.token}`,
+        request: responseClient.body.id
+      })
 
     expect(responseDelivery.status).toBe(200)
   })
