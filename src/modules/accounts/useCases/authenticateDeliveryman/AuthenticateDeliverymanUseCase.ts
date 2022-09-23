@@ -28,7 +28,7 @@ export class AuthenticateDeliverymanUseCase {
       throw new Error(messageError)
     }
 
-    const token = sign({ username }, 'secret-deliveryman', {
+    const token = sign({ username }, process.env.DELIVERYMAN_SECRET as string, {
       subject: deliveryman.id,
       expiresIn: '1d'
     })

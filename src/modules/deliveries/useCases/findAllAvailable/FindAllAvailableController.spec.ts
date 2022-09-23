@@ -12,19 +12,33 @@ describe('Find All Available Controller', () => {
   })
 
   it('should be able to list all available delivery', async () => {
-    const username = 'username'
-    const password = 'password'
+    const usernameClient = 'username-client'
+    const passwordClient = 'password-client'
+    const usernameDeliveryman = 'username-deliveryman'
+    const passwordDeliveryman = 'password-deliveryman'
 
     const responseClient = await request(app).post('/clients').send({
-      username,
-      password
+      username: usernameClient,
+      password: passwordClient
+    })
+
+    await request(app).post('/deliverymen').send({
+      username: usernameDeliveryman,
+      password: passwordDeliveryman
     })
 
     const responseAuthenticateClient = await request(app)
       .post('/client/authenticate')
       .send({
-        username,
-        password
+        username: usernameClient,
+        password: passwordClient
+      })
+
+    const responseAuthenticateDeliveryman = await request(app)
+      .post('/deliveryman/authenticate')
+      .send({
+        username: usernameDeliveryman,
+        password: passwordDeliveryman
       })
 
     await request(app)
@@ -40,7 +54,7 @@ describe('Find All Available Controller', () => {
     const responseFindAllAvailable = await request(app)
       .get('/deliveries/available')
       .set({
-        authorization: `Bearer ${responseAuthenticateClient.body.token}`
+        authorization: `Bearer ${responseAuthenticateDeliveryman.body.token}`
       })
 
     expect(responseFindAllAvailable.status).toBe(200)

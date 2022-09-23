@@ -1,3 +1,5 @@
+import { app } from '@infra/http'
+
 import { InMemoryDeliverymanRepository } from '../../../deliveryman/repositories/memory/InMemoryDeliverymanRepository'
 import { CreateDeliverymanUseCase } from '../../../deliveryman/useCases/createDeliveryman/CreateDeliverymanUseCase'
 import { AuthenticateDeliverymanUseCase } from './AuthenticateDeliverymanUseCase'
@@ -6,6 +8,8 @@ let inMemoryDeliverymanRepository: InMemoryDeliverymanRepository
 let authenticateDeliveryman: AuthenticateDeliverymanUseCase
 let createDeliveryman: CreateDeliverymanUseCase
 
+let server: any
+
 describe('Authenticate Deliveryman', () => {
   beforeEach(() => {
     inMemoryDeliverymanRepository = new InMemoryDeliverymanRepository()
@@ -13,6 +17,14 @@ describe('Authenticate Deliveryman', () => {
     authenticateDeliveryman = new AuthenticateDeliverymanUseCase(
       inMemoryDeliverymanRepository
     )
+  })
+
+  beforeAll(() => {
+    server = app.listen()
+  })
+
+  afterAll(() => {
+    server.close()
   })
 
   it('should be able to deliveryman authenticate', async () => {
