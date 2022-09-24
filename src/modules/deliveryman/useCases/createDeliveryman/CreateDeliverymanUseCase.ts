@@ -23,7 +23,7 @@ export class CreateDeliverymanUseCase {
     const hashPassword = await hash(password, 10)
 
     const deliveryman = await this.deliverymanRepository.create({
-      username,
+      username: username.toLowerCase(),
       password: hashPassword,
     })
 

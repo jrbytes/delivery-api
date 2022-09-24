@@ -18,7 +18,7 @@ export class CreateClientUseCase {
     const hashPassword = await hash(password, 10)
 
     const client = await this.clientsRepository.create({
-      username,
+      username: username.toLowerCase(),
       password: hashPassword,
     })
 

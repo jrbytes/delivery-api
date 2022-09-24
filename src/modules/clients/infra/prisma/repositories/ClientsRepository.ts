@@ -21,9 +21,12 @@ export class ClientsRepository implements IClientsRepository {
   }
 
   async findUnique(username: string): Promise<Clients | undefined> {
-    const client = await this.repository.findUnique({
+    const client = await this.repository.findFirst({
       where: {
-        username,
+        username: {
+          equals: username,
+          mode: 'insensitive',
+        },
       },
     })
 

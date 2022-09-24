@@ -20,9 +20,12 @@ export class DeliverymanRepository implements IDeliverymanRepository {
   }
 
   async findUnique(username: string): Promise<Deliveryman | undefined> {
-    const deliveryman = await this.repository.findUnique({
+    const deliveryman = await this.repository.findFirst({
       where: {
-        username,
+        username: {
+          equals: username,
+          mode: 'insensitive',
+        },
       },
     })
 
