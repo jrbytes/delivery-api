@@ -55,4 +55,31 @@ export class DeliveriesRepository implements IDeliveriesRepository {
 
     return delivery
   }
+
+  async addEndDate(
+    delivery_id: string,
+    deliveryman_id: string
+  ): Promise<Deliveries | undefined> {
+    const findDelivery = await this.repository.findFirst({
+      where: {
+        id: delivery_id,
+        deliveryman_id,
+      },
+    })
+
+    if (findDelivery == null) {
+      return undefined
+    }
+
+    const delivery = await this.repository.update({
+      where: {
+        id: findDelivery.id,
+      },
+      data: {
+        end_at: new Date(),
+      },
+    })
+
+    return delivery
+  }
 }

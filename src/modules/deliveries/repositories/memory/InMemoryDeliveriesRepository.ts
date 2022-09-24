@@ -54,4 +54,22 @@ export class InMemoryDeliveriesRepository implements IDeliveriesRepository {
 
     return delivery
   }
+
+  async addEndDate(
+    delivery_id: string,
+    deliveryman_id: string
+  ): Promise<Deliveries | undefined> {
+    const delivery = this.deliveries.find(
+      (delivery) => delivery.id === delivery_id
+    )
+
+    if (delivery == null) {
+      return undefined
+    }
+
+    delivery.deliveryman_id = deliveryman_id
+    delivery.end_at = new Date()
+
+    return delivery
+  }
 }

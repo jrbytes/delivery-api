@@ -6,8 +6,9 @@ import { app } from '@infra/http'
 describe('Add Deliveryman Controller', () => {
   afterAll(async () => {
     const deleteClient = prisma.clients.deleteMany()
+    const deleteDeliveryman = prisma.deliveryman.deleteMany()
     const deleteDelivery = prisma.deliveries.deleteMany()
-    await prisma.$transaction([deleteDelivery, deleteClient])
+    await prisma.$transaction([deleteDelivery, deleteDeliveryman, deleteClient])
     await prisma.$disconnect()
   })
 

@@ -10,4 +10,8 @@ export interface IDeliveriesRepository {
     delivery_id: string,
     deliveryman_id: string
   ) => Promise<Deliveries | undefined>
+  addEndDate: (
+    delivery_id: string,
+    deliveryman_id: string
+  ) => Promise<Deliveries | undefined>
 }
