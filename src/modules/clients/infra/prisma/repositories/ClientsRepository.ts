@@ -1,4 +1,5 @@
 import { prisma } from '@database/prisma'
+import { IDeliveriesByClientDTO } from '@modules/clients/dtos/IDeliveriesByClientDTO'
 import { Clients, PrismaClient } from '@prisma/client'
 
 import { ICreateClientDTO } from '../../../dtos/ICreateClienteDTO'
@@ -31,12 +32,14 @@ export class ClientsRepository implements IClientsRepository {
 
   async findAllDeliveriesByClientId(
     client_id: string
-  ): Promise<Clients | undefined> {
+  ): Promise<IDeliveriesByClientDTO | undefined> {
     const clientWithDeliveries = await this.repository.findUniqueOrThrow({
       where: {
         id: client_id,
       },
-      include: {
+      select: {
+        id: true,
+        username: true,
         deliveries: true,
       },
     })

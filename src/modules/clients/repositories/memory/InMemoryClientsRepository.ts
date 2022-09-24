@@ -1,3 +1,4 @@
+import { IDeliveriesByClientDTO } from '@modules/clients/dtos/IDeliveriesByClientDTO'
 import { Clients } from '@prisma/client'
 
 import { ICreateClientDTO } from '../../dtos/ICreateClienteDTO'
@@ -29,9 +30,19 @@ export class InMemoryClientsRepository implements IClientsRepository {
 
   async findAllDeliveriesByClientId(
     client_id: string
-  ): Promise<Clients | undefined> {
+  ): Promise<IDeliveriesByClientDTO | undefined> {
     const client = this.clients.find((client) => client.id === client_id)
 
-    return client
+    if (client == null) {
+      return undefined
+    }
+
+    const parsedClient = {
+      id: client.id,
+      username: client.username,
+      deliveries: [],
+    }
+
+    return parsedClient
   }
 }
