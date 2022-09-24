@@ -1,4 +1,5 @@
 import { prisma } from '@database/prisma'
+import { IDeliveriesByDeliverymanDTO } from '@modules/deliveryman/dtos/IDeliveriesByDeliverymanDTO'
 import { Deliveryman, PrismaClient } from '@prisma/client'
 
 import { ICreateDeliverymanDTO } from '../../../dtos/ICreateDeliverymanDTO'
@@ -12,7 +13,7 @@ export class DeliverymanRepository implements IDeliverymanRepository {
   }
 
   async create(data: ICreateDeliverymanDTO): Promise<Deliveryman> {
-    const deliveryman = await prisma.deliveryman.create({
+    const deliveryman = await this.repository.create({
       data,
     })
 
@@ -30,5 +31,22 @@ export class DeliverymanRepository implements IDeliverymanRepository {
     })
 
     return deliveryman === null ? undefined : deliveryman
+  }
+
+  async findAllDeliveriesByDeliverymanId(
+    deliveryman_id: string
+  ): Promise<IDeliveriesByDeliverymanDTO | undefined> {
+    const deliveryman = await this.repository.findUniqueOrThrow({
+      where: {
+        id: deliveryman_id,
+      },
+      select: {
+        id: true,
+        username: true,
+        deliveries: true,
+      },
+    })
+
+    return deliveryman
   }
 }

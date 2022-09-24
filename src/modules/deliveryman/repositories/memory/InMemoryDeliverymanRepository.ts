@@ -1,3 +1,4 @@
+import { IDeliveriesByDeliverymanDTO } from '@modules/deliveryman/dtos/IDeliveriesByDeliverymanDTO'
 import { Deliveryman } from '@prisma/client'
 
 import { ICreateDeliverymanDTO } from '../../dtos/ICreateDeliverymanDTO'
@@ -27,5 +28,25 @@ export class InMemoryDeliverymanRepository implements IDeliverymanRepository {
     )
 
     return deliveryman
+  }
+
+  async findAllDeliveriesByDeliverymanId(
+    deliveryman_id: string
+  ): Promise<IDeliveriesByDeliverymanDTO | undefined> {
+    const deliveryman = this.deliveryman.find(
+      (deliveryman) => deliveryman.id === deliveryman_id
+    )
+
+    if (deliveryman == null) {
+      return undefined
+    }
+
+    const parsedDeliveryman = {
+      id: deliveryman.id,
+      username: deliveryman.username,
+      deliveries: [],
+    }
+
+    return parsedDeliveryman
   }
 }
