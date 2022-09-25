@@ -32,7 +32,7 @@ describe('Find All Deliveries Controller', () => {
         password,
       })
 
-    await request(app)
+    const responseDelivery = await request(app)
       .post('/deliveries')
       .send({
         item_name: 'Goku Shirt - Dragon Ball - M',
@@ -49,6 +49,13 @@ describe('Find All Deliveries Controller', () => {
         password,
       })
 
+    await request(app)
+      .patch(`/deliveries/add-deliveryman/${responseDelivery.body.id}`)
+      .set({
+        deliveryman_id: responseDeliveryman.body.id,
+        Authorization: `Bearer ${responseAuthenticateDeliveryman.body.token}`,
+      })
+
     const responseDeliveriesByDeliveryman = await request(app)
       .get('/deliverymen/deliveries')
       .set({
@@ -57,5 +64,6 @@ describe('Find All Deliveries Controller', () => {
       })
 
     expect(responseDeliveriesByDeliveryman.status).toBe(200)
+    expect(responseDeliveriesByDeliveryman.body.deliveries).toHaveLength(1)
   })
 })

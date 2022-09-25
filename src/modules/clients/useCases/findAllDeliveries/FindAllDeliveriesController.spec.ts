@@ -45,5 +45,6 @@ describe('Find All Deliveries Controller', () => {
       })
 
     expect(responseDeliveriesByClient.status).toBe(200)
+    expect(responseDeliveriesByClient.body.deliveries).toHaveLength(1)
   })
 })
